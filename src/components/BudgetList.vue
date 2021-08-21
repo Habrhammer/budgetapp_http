@@ -4,13 +4,23 @@
       <div class="header" slot="header">
         <span>{{ header }}</span>
         <div>
-          <el-button type="success" @click="filterValue = 'INCOME'" plain>Income</el-button>
-          <el-button type="danger" @click="filterValue = 'OUTCOME'" plain>Outcome</el-button>
-          <el-button type="primary" @click="filterValue = 'ALL'" plain>All</el-button>
+          <el-button type="success" @click="filterValue = 1" plain
+            >Income</el-button
+          >
+          <el-button type="danger" @click="filterValue = -1" plain
+            >Outcome</el-button
+          >
+          <el-button type="primary" @click="filterValue = null" plain
+            >All</el-button
+          >
         </div>
       </div>
       <template v-if="!isEmpty">
-        <BudgetListItem v-for="itemList in filterItems()" :item="itemList" />
+        <BudgetListItem
+          v-for="itemList in budgetList(filterValue)"
+          :item="itemList"
+          :key="itemList.id"
+        />
       </template>
       <ElAlert v-else type="info" :title="emptyTitle" :closable="false" />
     </el-card>
@@ -20,6 +30,7 @@
 <script>
 import BudgetListItem from "@/components/BudgetListItem";
 import { mapGetters } from "vuex";
+
 export default {
   components: { BudgetListItem },
   name: "BudgetList",
@@ -28,27 +39,14 @@ export default {
     return {
       header: "Budget List",
       emptyTitle: "Empty List",
-      filterValue: "ALL",
+      filterValue: null,
     };
   },
+
   computed: {
     ...mapGetters("list", ["budgetList"]),
     isEmpty() {
-      return !Object.keys(this.budgetList).length;
-    },
-  },
-  methods: {
-        filterItems() {
-      if(this.filterValue === "INCOME"){
-        return Object.values(this.budgetList).filter((item) => item.value > 0);
-      }
-      if(this.filterValue === "OUTCOME"){
-        return Object.values(this.budgetList).filter((item) => item.value < 0);
-      }
-      if(this.filterValue === "ALL"){
-        return Object.values(this.budgetList)
-      }
-      
+      return !Object.keys(this.budgetList()).length;
     },
   },
 };
