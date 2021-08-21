@@ -1,4 +1,4 @@
-# start_template
+# budgetapp_with_vuex
 
 ## Project setup
 ```

@@ -1,19 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Form/>
+    <TotalBalance />
+    <BudgetList />
+    
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BudgetList from "@/components/BudgetList";
+import TotalBalance from "@/components/TotalBalance";
+import Form from "@/components/Form";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    BudgetList,
+    TotalBalance,
+    Form,
+  },
+
+  computed: {
+ 
+
+ 
+  },
+  methods: {
+
+  },
+};
 </script>
 
 <style>
