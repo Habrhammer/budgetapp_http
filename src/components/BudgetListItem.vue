@@ -12,7 +12,7 @@
       width="30%"
       center
     >
-      <span>Вы уверены, что хотите удалить {{ item.comment }}?</span>
+      <span>Вы уверены, что хотите удалить {{ item.comment }} {{item.id}}?</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">Нет</el-button>
         <el-button

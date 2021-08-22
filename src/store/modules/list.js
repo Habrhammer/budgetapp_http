@@ -1,22 +1,10 @@
 import Vue from "vue";
+import axios from "axios";
 const listStore = {
   namespaced: true,
   state: {
-    list: {
-      1: {
-        type: "INCOME",
-        value: 100,
-        comment: "Some comment",
-        id: 1,
-      },
-      2: {
-        type: "OUTCOME",
-        value: -50,
-        comment: "Some outcome comment",
-        id: 2,
-      },
-    },
-    filteredList: [],
+    list: [],
+   
   },
   getters: {
     budgetList: ({ list }) => {
@@ -52,22 +40,62 @@ const listStore = {
     },
   },
   mutations: {
-    ADD_ITEM(state, item) {
-      Vue.set(state.list, item.id, item);
-    },
-    DEL_ITEM(state, id) {
-      Vue.delete(state.list, id);
-    },
+
   },
   actions: {
-    addNewItem({ commit }, item) {
-      const newItem = { ...item, id: String(Math.random()) };
+    async addNewItem({ state }, item) {
+      const response = await fetch(
+        "https://vue-with-http-b929f-default-rtdb.firebaseio.com/transactions.json",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            type: item.type,
+            comment: item.comment,
+            value: item.value,
+          }),
+        }
+      );
 
-      commit("ADD_ITEM", newItem);
+      const firebaseData = await response.json();
+
+      state.list.push({
+        value: item.value,
+        type: item.type,
+        comment: item.comment,
+        id: firebaseData.name,
+      });
     },
-    deleteItem({ commit }, id) {
-      commit("DEL_ITEM", id);
+    async loadRemoteList({ state }) {
+      try {
+        const { data } = await axios.get(
+          "https://vue-with-http-b929f-default-rtdb.firebaseio.com/transactions.json"
+        );
+        if (!data) {
+          throw new Error("Список пуст!");
+        }
+
+        state.list = Object.keys(data).map((key) => {
+          return {
+            id: key,
+            ...data[key],
+          };
+        });
+      } catch (e) {
+        console.log(e.message);
+      }
     },
+    async deleteItem({state}, id) {
+      try {
+        console.log(id);
+        await axios.delete(`https://vue-with-http-b929f-default-rtdb.firebaseio.com/transactions/${id}.json`)
+        state.list = state.list.filter(item => item.id !== id)
+      } catch (e) {
+
+      }
+    }
   },
 };
 

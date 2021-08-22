@@ -19,6 +19,7 @@
         <BudgetListItem
           v-for="itemList in budgetList(filterValue)"
           :item="itemList"
+        
           :key="itemList.id"
         />
       </template>
@@ -30,6 +31,7 @@
 <script>
 import BudgetListItem from "@/components/BudgetListItem";
 import { mapGetters } from "vuex";
+
 
 export default {
   components: { BudgetListItem },

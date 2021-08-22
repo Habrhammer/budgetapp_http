@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-    <Form/>
+    <Form />
     <TotalBalance />
     <BudgetList />
-    
   </div>
 </template>
 
@@ -11,6 +10,7 @@
 import BudgetList from "@/components/BudgetList";
 import TotalBalance from "@/components/TotalBalance";
 import Form from "@/components/Form";
+import { mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -19,14 +19,14 @@ export default {
     TotalBalance,
     Form,
   },
-
-  computed: {
- 
-
- 
+  mounted() {
+    this.loadList();
   },
   methods: {
-
+    ...mapActions("list", ["loadRemoteList"]),
+    loadList() {
+      this.loadRemoteList();
+    },
   },
 };
 </script>
