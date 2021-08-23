@@ -3,6 +3,7 @@
     <Form />
     <TotalBalance />
     <BudgetList />
+    <FormAuth />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import BudgetList from "@/components/BudgetList";
 import TotalBalance from "@/components/TotalBalance";
 import Form from "@/components/Form";
+import FormAuth from "@/components/FormAuth";
 import { mapActions } from "vuex";
 
 export default {
@@ -18,6 +20,7 @@ export default {
     BudgetList,
     TotalBalance,
     Form,
+    FormAuth
   },
   mounted() {
     this.loadList();
