@@ -11,10 +11,14 @@ import {
   Select,
   Option, 
   Alert,
-  Dialog
+  Dialog,
+  Menu,
+  MenuItem,
+
+ 
 } from "element-ui";
 
-const elements = [Button, Card, Form, FormItem, Input, Select, Option, Alert, Dialog];
+const elements = [Button, Card, Form, FormItem, Input, Select, Option, Alert, Dialog, Menu,MenuItem];
 
 locale.use(lang);
 

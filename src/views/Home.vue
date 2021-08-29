@@ -1,7 +1,8 @@
 <template>
-  <div id="app">
-   <Navbar />
-   <router-view/>
+  <div class="home">
+    <Form />
+    <TotalBalance />
+    <BudgetList />
   </div>
 </template>
 
@@ -13,12 +14,12 @@ import Navbar from "@/components/Navbar";
 import { mapActions } from "vuex";
 
 export default {
-  name: "App",
+  name: 'Home',
   components: {
     BudgetList,
     TotalBalance,
     Form,
-    Navbar
+    Navbar,
   },
   mounted() {
     this.loadList();
@@ -41,5 +42,4 @@ export default {
   color: #2c3e50;
   /* margin-top: 60px; */
 }
-
 </style>

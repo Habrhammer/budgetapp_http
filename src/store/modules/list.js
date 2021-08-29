@@ -1,5 +1,4 @@
 import Vue from "vue";
-import axios from "axios";
 import firebase from "firebase/app";
 const listStore = {
   namespaced: true,
